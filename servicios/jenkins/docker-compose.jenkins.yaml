@@ -1,0 +1,23 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 50000:50000
+    expose:
+      - "8080"
+    container_name: jenkins
+    volumes:
+      - ${PWD}/jenkins/jenkinsconfig:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jenkins.rule=Host(`${DOCKER_JENKINS_HOSTNAME}`)
+      - traefik.http.routers.jenkins.service=jenkins
+      - traefik.http.services.jenkins.loadbalancer.server.port=8080
+networks:
+  proxy:
+    driver: bridge

@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 21
+Specification-Title: Jenkins MSBuild Plugin
+Specification-Version: 1.33
+Implementation-Title: Jenkins MSBuild Plugin
+Implementation-Version: 1.33
+Group-Id: org.jenkins-ci.plugins
+Artifact-Id: msbuild
+Short-Name: msbuild
+Long-Name: Jenkins MSBuild Plugin
+Url: https://github.com/jenkinsci/msbuild-plugin/
+Plugin-Version: 1.33
+Hudson-Version: 2.401.1
+Jenkins-Version: 2.401.1
+Plugin-Dependencies: structs:325.vcb_307d2a_2782
+Plugin-Developers: 
+Plugin-License-Name: MIT license
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/msbuild-plugi
+ n.git
+Plugin-ScmTag: msbuild-1.33
+Plugin-ScmUrl: https://github.com/jenkinsci/plugin-pom/msbuild
+Plugin-GitHash: e788f7dfc1256b0632a7d5831c939179b493f4d4
+Implementation-Build: e788f7dfc1256b0632a7d5831c939179b493f4d4
+

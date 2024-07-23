@@ -1,0 +1,52 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1400.v7fd111b_ec82f">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2205.vc9522a_9d5711"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2205.vc9522a_9d5711">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@3908.vd6b_b_5a_a_54010">
+    <script>pipeline {
+    agent any
+    stages {
+        stage(&apos;Approval&apos;) {
+            steps {
+                script {
+                   timeout(time: 1, unit: &apos;HOURS&apos;) {
+                        approvalStatus = input message: &apos;You want to approve this build? &apos;, ok: &apos;Submit&apos;, parameters: [choice(choices: [&apos;Approved&apos;, &apos;Rejected&apos;], name: &apos;ApprovalStatus&apos;)], submitter: env.USERS_AUTHORIZED, submitterParameter: &apos;approverID&apos;
+                   }
+                }
+                echo &quot;Approval status: ${approvalStatus}&quot;
+                //##prints Approval status: {approverID=user1, ApprovalStatus=Approved}
+            }
+        }
+        stage(&apos;Build&apos;) {
+            when {
+                expression { approvalStatus[&quot;ApprovalStatus&quot;] == &apos;Approved&apos; }
+            }
+            steps {
+                sh &apos;echo &quot;Building...&quot;&apos;
+            }
+        }
+        stage(&apos;Deploy&apos;) {
+            when {
+                expression { approvalStatus[&quot;ApprovalStatus&quot;] == &apos;Approved&apos; }
+            }
+            steps {
+                sh &apos;echo &quot;Deploying...&quot;&apos;
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

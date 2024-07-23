@@ -1,0 +1,19 @@
+services:
+  registry-server:
+    image: registry:2.8.2
+    restart: always
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+    volumes:
+      - ${PWD}/registry/data:/var/lib/registry
+    container_name: registry-server
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.registry.rule=Host(`${DOCKER_REGISTRY_HOSTNAME}`)"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge
