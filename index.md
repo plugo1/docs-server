@@ -57,9 +57,14 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 docker compose -f docker-compose.traefik.yaml up -d
 ```
 
-# Correr todo localmente
+# Correr todo localmente con traefik
 ``` sh
 docker compose -f docker-compose.traefik.yaml -f registry/docker-compose.registry.yaml -f minio/docker-compose.minio.yaml -f jenkins/docker-compose.jenkins.yaml up -d
+```
+
+# Correr todo localmente con nginx proxy manager
+``` sh
+docker compose -f docker-compose.nginx.yaml -f registry/docker-compose.registry.yaml -f minio/docker-compose.minio.yaml -f jenkins/docker-compose.jenkins.yaml up -d
 ```
 
 # Servidor Registry
